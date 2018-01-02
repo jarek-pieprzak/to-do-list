@@ -1,21 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class App extends Component {
 
     state = {
-        defaultValue: '',
         tasks: [
             {
                 id: 1,
                 title: 'One'
             },
             {
-              id: 2,
-              title: 'Two'
+                id: 2,
+                title: 'Two'
             },
             {
-             id: 3,
-             title: 'Three'
+                id: 3,
+                title: 'Three'
             }
         ]
     };
@@ -30,7 +29,7 @@ class App extends Component {
                     (biggest, next) => Math.max(biggest, next),
                     0
                 ) + 1,
-                content: this.state.defaultValue
+                title: this.inputField.value
             })
         })
     };
@@ -38,30 +37,27 @@ class App extends Component {
     render() {
         return (
             <div>
-              <h1>Task List</h1>
+                <h1>Task List</h1>
 
                 <form onSubmit={this.handleSubmit}>
-                    <input />
+                    <input ref={element => this.inputField = element }/>
                     <button>Add task</button>
                 </form>
 
-
                 <ul>
-                  {
-                      this.state.tasks.map(function (task) {
-                              return (
-                                  <li key={task.id}>
-                                      {task.title}
-                                  </li>
-                              )
-                          }
-                      )
-                  }
-              </ul>
+                    {
+                        this.state.tasks.map(
+                            task => (
+                                <li key={task.id}>
+                                    {task.title}
+                                </li>
+                            )
+                        )
+                    }
+                </ul>
             </div>
         )
     }
 }
 
-
-export default App;
+export default App
