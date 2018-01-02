@@ -3,13 +3,12 @@ import React, { Component } from 'react'
 class App extends Component {
 
     state = {
-        taskInputValue: '',
+        defaultTaskValue: '',
         tasks: []
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
-        console.log('SUBMIT');
         this.setState({
             tasks: this.state.tasks.concat({
                 id: this.state.tasks.map(
@@ -18,15 +17,15 @@ class App extends Component {
                     (biggest, next) => Math.max(biggest, next),
                     0
                 ) + 1,
-                content: this.state.taskInputValue
+                title: this.state.defaultTaskValue
             }),
-            taskInputValue: ''
+            defaultTaskValue: ''
         });
     };
 
     handleChange = event => {
         this.setState({
-            taskInputValue: event.target.value
+            defaultTaskValue: event.target.value
         })
     };
 
@@ -46,7 +45,7 @@ class App extends Component {
 
                 <form onSubmit={this.handleSubmit}>
                     <input
-                        value={this.state.taskInputValue}
+                        value={this.state.defaultTaskValue}
                         onChange={this.handleChange}
                     />
                     <button>Add task</button>
@@ -57,13 +56,10 @@ class App extends Component {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
-                                    {task.content}
+                                    {task.title}
 
-                                    <button
-                                        data-task-id={task.id}
-                                        onClick={this.handleDeleteClick}
-                                    >
-                                        delete
+                                    <button data-task-id={task.id} onClick={this.handleDeleteClick}>
+                                        -
                                     </button>
                                 </li>
                             )
