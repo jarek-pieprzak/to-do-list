@@ -3,24 +3,13 @@ import React, { Component } from 'react'
 class App extends Component {
 
     state = {
-        tasks: [
-            {
-                id: 1,
-                title: 'One'
-            },
-            {
-                id: 2,
-                title: 'Two'
-            },
-            {
-                id: 3,
-                title: 'Three'
-            }
-        ]
+        taskInputValue: '',
+        tasks: []
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
+        console.log('SUBMIT');
         this.setState({
             tasks: this.state.tasks.concat({
                 id: this.state.tasks.map(
@@ -29,9 +18,10 @@ class App extends Component {
                     (biggest, next) => Math.max(biggest, next),
                     0
                 ) + 1,
-                title: this.inputField.value
-            })
-        })
+                content: this.state.taskInputValue
+            }),
+            taskInputValue: ''
+        });
     };
 
     handleChange = event => {
@@ -41,14 +31,15 @@ class App extends Component {
     };
 
     handleDeleteClick = event => {
+        console.log(event.target.dataset.taskId);
         this.setState({
             tasks: this.state.tasks.filter(
                 task => task.id !== parseInt(event.target.dataset.taskId, 10)
             )
         })
     };
-
     render() {
+        console.table(this.state.tasks);
         return (
             <div>
                 <h1>Task List</h1>
@@ -66,10 +57,13 @@ class App extends Component {
                         this.state.tasks.map(
                             task => (
                                 <li key={task.id}>
-                                    {task.title}
+                                    {task.content}
 
-                                    <button data-task-id={task.id} onClick={this.handleDeleteClick}>
-                                        -
+                                    <button
+                                        data-task-id={task.id}
+                                        onClick={this.handleDeleteClick}
+                                    >
+                                        delete
                                     </button>
                                 </li>
                             )
