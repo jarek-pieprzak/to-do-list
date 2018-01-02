@@ -34,13 +34,30 @@ class App extends Component {
         })
     };
 
+    handleChange = event => {
+        this.setState({
+            taskInputValue: event.target.value
+        })
+    };
+
+    handleDeleteClick = event => {
+        this.setState({
+            tasks: this.state.tasks.filter(
+                task => task.id !== parseInt(event.target.dataset.taskId, 10)
+            )
+        })
+    };
+
     render() {
         return (
             <div>
                 <h1>Task List</h1>
 
                 <form onSubmit={this.handleSubmit}>
-                    <input ref={element => this.inputField = element }/>
+                    <input
+                        value={this.state.taskInputValue}
+                        onChange={this.handleChange}
+                    />
                     <button>Add task</button>
                 </form>
 
@@ -50,6 +67,10 @@ class App extends Component {
                             task => (
                                 <li key={task.id}>
                                     {task.title}
+
+                                    <button data-task-id={task.id} onClick={this.handleDeleteClick}>
+                                        -
+                                    </button>
                                 </li>
                             )
                         )
