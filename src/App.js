@@ -15,9 +15,14 @@ class App extends Component {
             <div>
               <h1>Task List</h1>
               <ul>
-                <li>{this.state.tasks[0]}</li>
-                <li>{this.state.tasks[1]}</li>
-                <li>{this.state.tasks[2]}</li>
+                  {
+                      this.state.tasks.map(function (task) {
+                          console.log(task);
+                          return (
+                              <li>{task}</li>
+                          );
+                      })
+                  }
               </ul>
             </div>
         )
