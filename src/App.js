@@ -1,21 +1,28 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
-  }
+
+    state = {
+        tasks: [
+            'One',
+            'Two',
+            'Three'
+        ]
+    };
+
+    render() {
+        return (
+            <div>
+              <h1>Task List</h1>
+              <ul>
+                <li>{this.state.tasks[0]}</li>
+                <li>{this.state.tasks[1]}</li>
+                <li>{this.state.tasks[2]}</li>
+              </ul>
+            </div>
+        )
+    }
 }
+
 
 export default App;
